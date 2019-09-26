@@ -91,7 +91,7 @@ class NewsArticle {
     return NewsArticle(
       title: json['title'], 
       descrption: json['description'], 
-      urlToImage: json['urlToImage'] ?? Constants.NEWS_PLACEHOLDER_IMAGE_ASSET_URL,
+      urlToImage: json['urlToImage'] ?? Constants.NEWS_ALTERNATIVE_IMAGE_ASSET_URL,
       url: json['url']
     );
   }
