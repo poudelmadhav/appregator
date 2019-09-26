@@ -1,6 +1,6 @@
 # appregator
 
-A news portal
+A flutter app to fetch data from NEWS API and display the data
 
 ## Getting Started
 
