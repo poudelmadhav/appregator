@@ -64,7 +64,8 @@ class NewsListState extends State<NewsList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('Appregator', textAlign: TextAlign.center)),
+        title: Text('Appregator'),
+        centerTitle: true,
       ),
       body: ListView.builder(
         itemCount: _newsArticles.length,
@@ -91,7 +92,7 @@ class NewsArticle {
     return NewsArticle(
       title: json['title'], 
       descrption: json['description'], 
-      urlToImage: json['urlToImage'] ?? Constants.NEWS_ALTERNATIVE_IMAGE_ASSET_URL,
+      urlToImage: json['urlToImage'],
       url: json['url']
     );
   }
