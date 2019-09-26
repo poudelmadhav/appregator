@@ -13,15 +13,16 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Networking",
-      home: NewsList()
+      title: "Appregator",
+      debugShowCheckedModeBanner: false,
+      home: NewsList(),
     );
   }
 }
 
 class Constants {
-  static final String HEADLINE_NEWS_URL = 'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=85a958849ffc4bffa9150ac325fb48d8';
-  static final String NEWS_PLACEHOLDER_IMAGE_ASSET_URL = 'assets/placeholder.png';
+  static final String HEADLINE_NEWS_URL = 'https://newsapi.org/v2/top-headlines?country=us&category=technology&apiKey=85a958849ffc4bffa9150ac325fb48d8';
+  static final String NEWS_PLACEHOLDER_IMAGE_ASSET_URL = 'assets/loading.gif';
 }
 
 class NewsListState extends State<NewsList> {
@@ -61,7 +62,7 @@ class NewsListState extends State<NewsList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('News'),
+        title: Center(child: Text('Appregator', textAlign: TextAlign.center)),
       ),
       body: ListView.builder(
         itemCount: _newsArticles.length,

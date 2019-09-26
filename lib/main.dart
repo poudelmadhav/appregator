@@ -21,8 +21,9 @@ class App extends StatelessWidget {
 }
 
 class Constants {
-  static final String HEADLINE_NEWS_URL = 'https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=85a958849ffc4bffa9150ac325fb48d8';
+  static final String HEADLINE_NEWS_URL = 'https://newsapi.org/v2/everything?q=migrant&sortBy=publishedAt&apiKey=85a958849ffc4bffa9150ac325fb48d8';
   static final String NEWS_PLACEHOLDER_IMAGE_ASSET_URL = 'assets/loading.gif';
+  static final String NEWS_ALTERNATIVE_IMAGE_ASSET_URL = 'assets/icon.png';
 }
 
 class NewsListState extends State<NewsList> {
@@ -46,7 +47,7 @@ class NewsListState extends State<NewsList> {
   ListTile _buildItemsForListView(BuildContext context, int index) {
     return ListTile(
       title: _newsArticles[index].urlToImage == null 
-          ? Image.asset(Constants.NEWS_PLACEHOLDER_IMAGE_ASSET_URL) 
+          ? Image.asset(Constants.NEWS_ALTERNATIVE_IMAGE_ASSET_URL) 
           : FadeInImage.assetNetwork(
             placeholder: Constants.NEWS_PLACEHOLDER_IMAGE_ASSET_URL, 
             image:_newsArticles[index].urlToImage
@@ -55,6 +56,7 @@ class NewsListState extends State<NewsList> {
       onTap: () {
         launch(_newsArticles[index].url, forceWebView: true, forceSafariVC: true);
       },
+      contentPadding: EdgeInsets.all(20.0),
     );
   }
 
