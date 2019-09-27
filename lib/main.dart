@@ -44,30 +44,6 @@ class NewsListState extends State<NewsList> {
     });
   }
 
-  ListTile _buildItemsForListView(BuildContext context, int index) {
-    return ListTile(
-      title: _newsArticles[index].urlToImage == null 
-          ? Image.asset(Constants.NEWS_ALTERNATIVE_IMAGE_ASSET_URL) 
-          : FadeInImage.assetNetwork(
-            placeholder: Constants.NEWS_PLACEHOLDER_IMAGE_ASSET_URL, 
-            image:_newsArticles[index].urlToImage
-          ), 
-      subtitle: Text(_newsArticles[index].title, style: TextStyle(fontSize: 18)),
-      onTap: () {
-        _launchURL(_newsArticles[index].url);
-      },
-      contentPadding: EdgeInsets.all(20.0),
-    );
-  }
-
-  _launchURL(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url, forceWebView: true, forceSafariVC: true);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     List<Widget> newsCards = _newsArticles.map((news) => 
@@ -129,9 +105,17 @@ class NewsArticle {
 }
 
 class NewsCard extends StatelessWidget {
-  NewsArticle _news;
+  final NewsArticle _news;
   
   NewsCard(this._news);
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true, forceSafariVC: true);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +124,12 @@ class NewsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Image.network('https://www.bbc.co.uk/news/special/2015/newsspec_10857/bbc_news_logo.png?cb=1'),
+          _news.urlToImage == null 
+            ? Image.asset(Constants.NEWS_ALTERNATIVE_IMAGE_ASSET_URL) 
+            : FadeInImage.assetNetwork(
+              placeholder: Constants.NEWS_PLACEHOLDER_IMAGE_ASSET_URL, 
+              image:_news.urlToImage
+            ),
           Padding(
             padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
             child: Text("2018/02/15", style: TextStyle(
