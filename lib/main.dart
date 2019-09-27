@@ -82,8 +82,9 @@ class NewsArticle {
   final String urlToImage; 
   final String url;
   final String publishedAt;
+  final String source;
 
-  NewsArticle({this.title, this.description, this.urlToImage, this.url, this.publishedAt});
+  NewsArticle({this.title, this.description, this.urlToImage, this.url, this.publishedAt, this.source});
 
   factory NewsArticle.fromJson(Map<String,dynamic> json) {
     return NewsArticle(
@@ -91,7 +92,8 @@ class NewsArticle {
       description: json['description'], 
       urlToImage: json['urlToImage'],
       url: json['url'],
-      publishedAt: json['publishedAt']
+      publishedAt: json['publishedAt'],
+      source: json['source']['name']
     );
   }
 
@@ -150,7 +152,19 @@ class NewsCard extends StatelessWidget {
                   ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
-                  child: _publishedAt(_news.publishedAt),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _publishedAt(_news.publishedAt),
+                      Text(
+                        "Source: ${_news.source}",
+                        style: TextStyle(
+                          fontSize: 10.0,
+                          fontStyle: FontStyle.italic
+                        ),
+                      ),
+                    ]
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0),
@@ -166,6 +180,7 @@ class NewsCard extends StatelessWidget {
                   overflow: TextOverflow.fade
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     FlatButton(child: Text("Share"), onPressed: () => { Share.share(_news.url) }),
                     FlatButton(child: Text("Bookmark"), onPressed: () => {}),
