@@ -21,9 +21,9 @@ class App extends StatelessWidget {
 }
 
 class Constants {
-  static final String HEADLINE_NEWS_URL = 'https://newsapi.org/v2/everything?q=migrant&sortBy=publishedAt&apiKey=85a958849ffc4bffa9150ac325fb48d8';
-  static final String NEWS_PLACEHOLDER_IMAGE_ASSET_URL = 'assets/loading.gif';
-  static final String NEWS_ALTERNATIVE_IMAGE_ASSET_URL = 'assets/icon.png';
+  static final String headlineNewsUrl = 'https://newsapi.org/v2/everything?q=migrant&sortBy=publishedAt&apiKey=85a958849ffc4bffa9150ac325fb48d8';
+  static final String newsPlaceholderImageAssetUrl = 'assets/loading.gif';
+  static final String newsAlternativeImageAssetUrl = 'assets/icon.png';
 }
 
 class NewsListState extends State<NewsList> {
@@ -94,7 +94,7 @@ class NewsArticle {
 
   static Resource<List<NewsArticle>> get all {
     return Resource(
-      url: Constants.HEADLINE_NEWS_URL,
+      url: Constants.headlineNewsUrl,
       parse: (response) {
         final result = json.decode(response.body); 
         Iterable list = result['articles'];
@@ -125,9 +125,9 @@ class NewsCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           _news.urlToImage == null 
-            ? Image.asset(Constants.NEWS_ALTERNATIVE_IMAGE_ASSET_URL) 
+            ? Image.asset(Constants.newsAlternativeImageAssetUrl) 
             : FadeInImage.assetNetwork(
-              placeholder: Constants.NEWS_PLACEHOLDER_IMAGE_ASSET_URL, 
+              placeholder: Constants.newsPlaceholderImageAssetUrl, 
               image:_news.urlToImage
             ),
           Padding(
@@ -154,7 +154,7 @@ class NewsCard extends StatelessWidget {
             children: [
               FlatButton(child: Text("Share"), onPressed: () => {}),
               FlatButton(child: Text("Bookmark"), onPressed: () => {}),
-              FlatButton(child: Text("Link"), onPressed: () => {}),
+              FlatButton(child: Text("Link"), onPressed: () => { _launchURL(_news.url) }),
             ],
           ),
         ],
