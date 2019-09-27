@@ -74,6 +74,14 @@ class NewsListState extends State<NewsList> {
       appBar: AppBar(
         title: Text('Appregator'),
         centerTitle: true,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              _populateNewsArticles();
+            },
+          )
+        ],
       ),
       body: ListView.builder(
         itemCount: _newsArticles.length,
