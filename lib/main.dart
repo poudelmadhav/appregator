@@ -168,10 +168,13 @@ class NewsCard extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0),
-                  child: Text("${_news.title}", style: TextStyle(
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold
-                  )),
+                  child: Text(
+                    "${_news.title}",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
                 ),
                 Text(
                   "${_news.description}",
