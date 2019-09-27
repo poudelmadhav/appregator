@@ -70,6 +70,8 @@ class NewsListState extends State<NewsList> {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> newsCards = _newsArticles.map((news) => 
+    NewsCard(news)).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text('Appregator'),
@@ -83,10 +85,10 @@ class NewsListState extends State<NewsList> {
           )
         ],
       ),
-      body: ListView.builder(
-        itemCount: _newsArticles.length,
-        itemBuilder: _buildItemsForListView,
-      )
+      body: ListView(
+        padding: EdgeInsets.all(20.0),
+        children: newsCards
+      ),
     );
   }
 }
@@ -99,16 +101,16 @@ class NewsList extends StatefulWidget {
 
 class NewsArticle {
   final String title; 
-  final String descrption; 
+  final String description; 
   final String urlToImage; 
   final String url;
 
-  NewsArticle({this.title, this.descrption, this.urlToImage, this.url});
+  NewsArticle({this.title, this.description, this.urlToImage, this.url});
 
   factory NewsArticle.fromJson(Map<String,dynamic> json) {
     return NewsArticle(
       title: json['title'], 
-      descrption: json['description'], 
+      description: json['description'], 
       urlToImage: json['urlToImage'],
       url: json['url']
     );
@@ -122,6 +124,52 @@ class NewsArticle {
         Iterable list = result['articles'];
         return list.map((model) => NewsArticle.fromJson(model)).toList();
       }
+    );
+  }
+}
+
+class NewsCard extends StatelessWidget {
+  NewsArticle _news;
+  
+  NewsCard(this._news);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Image.network('https://www.bbc.co.uk/news/special/2015/newsspec_10857/bbc_news_logo.png?cb=1'),
+          Padding(
+            padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+            child: Text("2018/02/15", style: TextStyle(
+              fontSize: 10.0,
+              fontStyle: FontStyle.italic
+            )),
+          ),
+          Padding(
+            padding: EdgeInsets.only(bottom: 10.0),
+            child: Text("${_news.title}", style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold
+            )),
+          ),
+          Text(
+            "${_news.description}",
+            maxLines: 2,
+            style: TextStyle(fontSize: 14.0),
+            overflow: TextOverflow.fade
+          ),
+          Row(
+            children: [
+              FlatButton(child: Text("Share"), onPressed: () => {}),
+              FlatButton(child: Text("Bookmark"), onPressed: () => {}),
+              FlatButton(child: Text("Link"), onPressed: () => {}),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
