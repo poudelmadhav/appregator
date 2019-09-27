@@ -124,38 +124,45 @@ class NewsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          _news.urlToImage == null 
-            ? Image.asset(Constants.newsAlternativeImageAssetUrl) 
-            : FadeInImage.assetNetwork(
-              placeholder: Constants.newsPlaceholderImageAssetUrl, 
-              image:_news.urlToImage
-            ),
-          Padding(
-            padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
-            child: Text("2018/02/15", style: TextStyle(
-              fontSize: 10.0,
-              fontStyle: FontStyle.italic
-            )),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 10.0),
-            child: Text("${_news.title}", style: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold
-            )),
-          ),
-          Text(
-            "${_news.description}",
-            maxLines: 2,
-            style: TextStyle(fontSize: 14.0),
-            overflow: TextOverflow.fade
-          ),
-          Row(
-            children: [
-              FlatButton(child: Text("Share"), onPressed: () => {}),
-              FlatButton(child: Text("Bookmark"), onPressed: () => {}),
-              FlatButton(child: Text("Link"), onPressed: () => { _launchURL(_news.url) }),
-            ],
+          GestureDetector(
+            onTap: () => _launchURL(_news.url),
+            child: Column(
+              children: <Widget>[
+                _news.urlToImage == null 
+                  ? Image.asset(Constants.newsAlternativeImageAssetUrl) 
+                  : FadeInImage.assetNetwork(
+                    placeholder: Constants.newsPlaceholderImageAssetUrl, 
+                    image:_news.urlToImage
+                  ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                  child: Text("2018/02/15", style: TextStyle(
+                    fontSize: 10.0,
+                    fontStyle: FontStyle.italic
+                  )),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Text("${_news.title}", style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold
+                  )),
+                ),
+                Text(
+                  "${_news.description}",
+                  maxLines: 2,
+                  style: TextStyle(fontSize: 14.0),
+                  overflow: TextOverflow.fade
+                ),
+                Row(
+                  children: [
+                    FlatButton(child: Text("Share"), onPressed: () => {}),
+                    FlatButton(child: Text("Bookmark"), onPressed: () => {}),
+                    FlatButton(child: Text("Link"), onPressed: () => { _launchURL(_news.url) }),
+                  ],
+                ),
+              ],
+            )
           ),
         ],
       ),
