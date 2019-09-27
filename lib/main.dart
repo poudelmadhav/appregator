@@ -62,7 +62,7 @@ class NewsListState extends State<NewsList> {
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(10.0),
         children: newsCards
       ),
     );
@@ -122,11 +122,11 @@ class NewsCard extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(20.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           GestureDetector(
             onTap: () => _launchURL(_news.url),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _news.urlToImage == null 
                   ? Image.asset(Constants.newsAlternativeImageAssetUrl) 
