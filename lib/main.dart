@@ -54,10 +54,18 @@ class NewsListState extends State<NewsList> {
           ), 
       subtitle: Text(_newsArticles[index].title, style: TextStyle(fontSize: 18)),
       onTap: () {
-        launch(_newsArticles[index].url, forceWebView: true, forceSafariVC: true);
+        _launchURL(_newsArticles[index].url);
       },
       contentPadding: EdgeInsets.all(20.0),
     );
+  }
+
+  _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true, forceSafariVC: true);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -74,6 +82,7 @@ class NewsListState extends State<NewsList> {
     );
   }
 }
+
 
 class NewsList extends StatefulWidget {
   @override
