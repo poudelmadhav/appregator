@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:share/share.dart';
 
 void main() => runApp(App());
 
@@ -109,9 +110,9 @@ class NewsCard extends StatelessWidget {
   
   NewsCard(this._news);
 
-  _launchURL(String url) async {
+  _launchURL(String url, [bool webView = true]) async {
     if (await canLaunch(url)) {
-      await launch(url, forceWebView: true, forceSafariVC: true);
+      await launch(url, forceWebView: webView, forceSafariVC: webView);
     } else {
       throw 'Could not launch $url';
     }
@@ -156,9 +157,9 @@ class NewsCard extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    FlatButton(child: Text("Share"), onPressed: () => {}),
+                    FlatButton(child: Text("Share"), onPressed: () => { Share.share(_news.url) }),
                     FlatButton(child: Text("Bookmark"), onPressed: () => {}),
-                    FlatButton(child: Text("Link"), onPressed: () => { _launchURL(_news.url) }),
+                    FlatButton(child: Text("Open"), onPressed: () => { _launchURL(_news.url) }),
                   ],
                 ),
               ],
