@@ -81,15 +81,17 @@ class NewsArticle {
   final String description; 
   final String urlToImage; 
   final String url;
+  final String publishedAt;
 
-  NewsArticle({this.title, this.description, this.urlToImage, this.url});
+  NewsArticle({this.title, this.description, this.urlToImage, this.url, this.publishedAt});
 
   factory NewsArticle.fromJson(Map<String,dynamic> json) {
     return NewsArticle(
       title: json['title'], 
       description: json['description'], 
       urlToImage: json['urlToImage'],
-      url: json['url']
+      url: json['url'],
+      publishedAt: json['publishedAt']
     );
   }
 
@@ -118,6 +120,17 @@ class NewsCard extends StatelessWidget {
     }
   }
 
+  _publishedAt(String publishedDate) {
+    DateTime _parsedDate = DateTime.parse(publishedDate);
+    return Text(
+      "${_parsedDate.year}/${_parsedDate.month}/${_parsedDate.day}",
+      style: TextStyle(
+        fontSize: 10.0,
+        fontStyle: FontStyle.italic
+      )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -137,10 +150,7 @@ class NewsCard extends StatelessWidget {
                   ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
-                  child: Text("2018/02/15", style: TextStyle(
-                    fontSize: 10.0,
-                    fontStyle: FontStyle.italic
-                  )),
+                  child: _publishedAt(_news.publishedAt),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 10.0),
