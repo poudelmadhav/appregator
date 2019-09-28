@@ -116,7 +116,7 @@ class NewsCard extends StatelessWidget {
 
   _launchURL(String url, [bool webView = true]) async {
     if (await canLaunch(url)) {
-      await launch(url, forceWebView: webView, forceSafariVC: webView);
+      await launch(url, forceWebView: webView, forceSafariVC: webView, enableJavaScript: true);
     } else {
       throw 'Could not launch $url';
     }
