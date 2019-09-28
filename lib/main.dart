@@ -145,11 +145,17 @@ class NewsCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _news.urlToImage == null 
-                  ? Image.asset(Constants.newsAlternativeImageAssetUrl) 
+                  ? Image.asset(
+                      Constants.newsAlternativeImageAssetUrl,
+                      fit: BoxFit.fitHeight,
+                      width: 2000,
+                    ) 
                   : FadeInImage.assetNetwork(
-                    placeholder: Constants.newsPlaceholderImageAssetUrl, 
-                    image:_news.urlToImage
-                  ),
+                      placeholder: Constants.newsPlaceholderImageAssetUrl, 
+                      image:_news.urlToImage,
+                      fit: BoxFit.fitHeight,
+                      width: 2000,
+                    ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
                   child: Row(
