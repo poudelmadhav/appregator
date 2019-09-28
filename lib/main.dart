@@ -205,6 +205,13 @@ class NewsCard extends StatelessWidget {
                         ),
                       ),
                       Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Divider(endIndent: 8, indent: 8)
+                          )
+                        ],
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           FlatButton(child: Text("Share"), onPressed: () => { Share.share(_news.url) }),
