@@ -152,7 +152,6 @@ class NewsCard extends StatelessWidget {
           GestureDetector(
             onTap: () => _launchURL(context, _news.url),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 new Container(
                   decoration: BoxDecoration(
@@ -166,6 +165,7 @@ class NewsCard extends StatelessWidget {
                     color: Colors.white,
                   ),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       _news.urlToImage == null 
                           ? Image.asset(
