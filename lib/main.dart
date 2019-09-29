@@ -4,8 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'dart:convert';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:share/share.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 
 void main() => runApp(App());
 
@@ -114,11 +114,21 @@ class NewsCard extends StatelessWidget {
   
   NewsCard(this._news);
 
-  _launchURL(String url, [bool webView = true]) async {
-    if (await canLaunch(url)) {
-      await launch(url, forceWebView: webView, forceSafariVC: webView, enableJavaScript: true);
-    } else {
-      throw 'Could not launch $url';
+  void _launchURL(BuildContext context, String url) async {
+    try {
+      await launch(
+        url,
+        option: new CustomTabsOption(
+          toolbarColor: Theme.of(context).primaryColor,
+          enableDefaultShare: true,
+          enableUrlBarHiding: true,
+          showPageTitle: true,
+          animation: new CustomTabsAnimation.slideIn()
+        ),
+      );
+    } catch (e) {
+      // An exception is thrown if browser app is not installed on Android device.
+      debugPrint(e.toString());
     }
   }
 
@@ -140,7 +150,7 @@ class NewsCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
           GestureDetector(
-            onTap: () => _launchURL(_news.url),
+            onTap: () => _launchURL(context, _news.url),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -216,7 +226,7 @@ class NewsCard extends StatelessWidget {
                         children: [
                           FlatButton(child: Text("Share"), onPressed: () => { Share.share(_news.url) }),
                           FlatButton(child: Text("Bookmark"), onPressed: () => {}),
-                          FlatButton(child: Text("Open"), onPressed: () => { _launchURL(_news.url) }),
+                          FlatButton(child: Text("Open"), onPressed: () => { _launchURL(context, _news.url) }),
                         ],
                       ),
                     ],
