@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:share/share.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
+import 'package:url_launcher/url_launcher.dart' as urlLaunch;
 
 void main() => runApp(App());
 
@@ -127,8 +128,11 @@ class NewsCard extends StatelessWidget {
         ),
       );
     } catch (e) {
-      // An exception is thrown if browser app is not installed on Android device.
-      debugPrint(e.toString());
+      if (await urlLaunch.canLaunch(url)) {
+        await urlLaunch.launch(url, forceWebView: true, forceSafariVC: true, enableJavaScript: true);
+      } else {
+        throw 'Could not launch $url';
+      }
     }
   }
 
