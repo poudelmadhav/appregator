@@ -1,6 +1,7 @@
 import 'package:appregator/models/news_article.dart';
 import 'package:appregator/screens/news_card.dart';
 import 'package:appregator/services/web.dart';
+import 'package:appregator/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class NewsList extends StatefulWidget {
@@ -9,6 +10,7 @@ class NewsList extends StatefulWidget {
 }
 
 class _NewsListState extends State<NewsList> {
+  bool loading = true;
   List<NewsArticle> _newsArticles = List<NewsArticle>();
 
   @override
@@ -19,7 +21,10 @@ class _NewsListState extends State<NewsList> {
 
   void _populateNewsArticles() {
     Webservice().load(NewsArticle.all).then((newsArticles) => {
-          setState(() => {_newsArticles = newsArticles})
+          setState(() => {
+                _newsArticles = newsArticles,
+                loading = false,
+              })
         });
   }
 
@@ -35,12 +40,17 @@ class _NewsListState extends State<NewsList> {
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
+              setState(() {
+                loading = true;
+              });
               _populateNewsArticles();
             },
           )
         ],
       ),
-      body: ListView(padding: EdgeInsets.all(10.0), children: newsCards),
+      body: loading
+          ? Loading()
+          : ListView(padding: EdgeInsets.all(10.0), children: newsCards),
     );
   }
 }
