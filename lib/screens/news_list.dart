@@ -45,7 +45,8 @@ class _NewsListState extends State<NewsList> {
           IconButton(
             icon: Icon(Icons.search),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) {
                 return SearchForm();
               }));
             },

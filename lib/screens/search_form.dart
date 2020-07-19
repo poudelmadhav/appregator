@@ -20,6 +20,10 @@ class _SearchFormState extends State<SearchForm> {
         : Scaffold(
             appBar: AppBar(
               title: Text('Search News'),
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
             ),
             body: Container(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
