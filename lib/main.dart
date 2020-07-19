@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Appregator",
       debugShowCheckedModeBanner: false,
-      home: NewsList(query: 'migrant'),
+      home: NewsList(query: 'Nepal'),
     );
   }
 }
