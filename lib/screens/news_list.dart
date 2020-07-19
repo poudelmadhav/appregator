@@ -6,6 +6,8 @@ import 'package:appregator/shared/loading.dart';
 import 'package:flutter/material.dart';
 
 class NewsList extends StatefulWidget {
+  final String query;
+  NewsList({this.query});
   @override
   _NewsListState createState() => _NewsListState();
 }
@@ -13,6 +15,7 @@ class NewsList extends StatefulWidget {
 class _NewsListState extends State<NewsList> {
   bool loading = true;
   List<NewsArticle> _newsArticles = List<NewsArticle>();
+  NewsArticle _newsArticle = NewsArticle();
 
   @override
   void initState() {
@@ -21,12 +24,14 @@ class _NewsListState extends State<NewsList> {
   }
 
   void _populateNewsArticles() {
-    Webservice().load(NewsArticle.all).then((newsArticles) => {
-          setState(() => {
-                _newsArticles = newsArticles,
-                loading = false,
-              })
-        });
+    Webservice()
+        .load(_newsArticle.getNews(widget.query))
+        .then((newsArticles) => {
+              setState(() => {
+                    _newsArticles = newsArticles,
+                    loading = false,
+                  })
+            });
   }
 
   @override

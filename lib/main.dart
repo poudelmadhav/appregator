@@ -11,7 +11,7 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: "Appregator",
       debugShowCheckedModeBanner: false,
-      home: NewsList(),
+      home: NewsList(query: 'migrant'),
     );
   }
 }

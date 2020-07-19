@@ -1,5 +1,4 @@
 import 'package:appregator/models/resource.dart';
-import 'package:appregator/shared/constants.dart';
 import 'dart:convert';
 
 class NewsArticle {
@@ -28,9 +27,10 @@ class NewsArticle {
         source: json['source']['name']);
   }
 
-  static Resource<List<NewsArticle>> get all {
+  Resource<List<NewsArticle>> getNews(String query) {
     return Resource(
-        url: Constants.headlineNewsUrl,
+        url:
+            "https://newsapi.org/v2/everything?q=$query&sortBy=publishedAt&apiKey=85a958849ffc4bffa9150ac325fb48d8",
         parse: (response) {
           final result = json.decode(response.body);
           Iterable list = result['articles'];
