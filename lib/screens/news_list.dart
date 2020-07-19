@@ -1,5 +1,6 @@
 import 'package:appregator/models/news_article.dart';
 import 'package:appregator/screens/news_card.dart';
+import 'package:appregator/screens/search_form.dart';
 import 'package:appregator/services/web.dart';
 import 'package:appregator/shared/loading.dart';
 import 'package:flutter/material.dart';
@@ -35,8 +36,15 @@ class _NewsListState extends State<NewsList> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Appregator'),
-        centerTitle: true,
         actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return SearchForm();
+              }));
+            },
+          ),
           IconButton(
             icon: Icon(Icons.refresh),
             onPressed: () {
