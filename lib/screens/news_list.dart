@@ -2,6 +2,7 @@ import 'package:appregator/models/news_article.dart';
 import 'package:appregator/screens/news_card.dart';
 import 'package:appregator/screens/search_form.dart';
 import 'package:appregator/services/web.dart';
+import 'package:appregator/shared/box_decoration_with_shadow.dart';
 import 'package:appregator/shared/loading.dart';
 import 'package:flutter/material.dart';
 
@@ -62,11 +63,24 @@ class _NewsListState extends State<NewsList> {
       ),
       body: loading
           ? Loading()
-          : ListView.builder(
-              itemCount: _newsArticles.length,
-              itemBuilder: (context, int index) {
-                return NewsCard(_newsArticles[index]);
-              },
+          : Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(10.0),
+                  decoration: boxDecorationWithShadow,
+                  child: ListTile(
+                    title: Text('News related to \"${widget.query}\"'),
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: _newsArticles.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return NewsCard(_newsArticles[index]);
+                    },
+                  ),
+                ),
+              ],
             ),
     );
   }

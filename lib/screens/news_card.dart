@@ -1,3 +1,4 @@
+import 'package:appregator/shared/box_decoration_with_shadow.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
@@ -48,15 +49,7 @@ class NewsCard extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   new Container(
-                    decoration: BoxDecoration(
-                      boxShadow: <BoxShadow>[
-                        BoxShadow(
-                            color: Colors.black54,
-                            blurRadius: 10.0,
-                            offset: Offset(0.0, 0.75))
-                      ],
-                      color: Colors.white,
-                    ),
+                    decoration: boxDecorationWithShadow,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
