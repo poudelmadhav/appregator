@@ -1,36 +1,14 @@
 import 'package:appregator/shared/box_decoration_with_shadow.dart';
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
-import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
-import 'package:url_launcher/url_launcher.dart' as urlLaunch;
 import 'package:appregator/shared/constants.dart';
 import 'package:appregator/models/news_article.dart';
+import 'package:appregator/shared/launch_url.dart';
 
 class NewsCard extends StatelessWidget {
   final NewsArticle _news;
 
   NewsCard(this._news);
-
-  void _launchURL(BuildContext context, String url) async {
-    try {
-      await launch(
-        url,
-        option: new CustomTabsOption(
-            toolbarColor: Theme.of(context).primaryColor,
-            enableDefaultShare: true,
-            enableUrlBarHiding: true,
-            showPageTitle: true,
-            animation: new CustomTabsAnimation.slideIn()),
-      );
-    } catch (e) {
-      if (await urlLaunch.canLaunch(url)) {
-        await urlLaunch.launch(url,
-            forceWebView: true, forceSafariVC: true, enableJavaScript: true);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-  }
 
   _publishedAt(String publishedDate) {
     DateTime _parsedDate = DateTime.parse(publishedDate);
@@ -45,7 +23,7 @@ class NewsCard extends StatelessWidget {
       child: Column(
         children: <Widget>[
           GestureDetector(
-              onTap: () => _launchURL(context, _news.url),
+              onTap: () => launchURL(context, _news.url),
               child: Column(
                 children: <Widget>[
                   new Container(
@@ -111,7 +89,7 @@ class NewsCard extends StatelessWidget {
                             FlatButton(
                                 child: Text("Open"),
                                 onPressed: () =>
-                                    {_launchURL(context, _news.url)}),
+                                    {launchURL(context, _news.url)}),
                           ],
                         ),
                       ],
