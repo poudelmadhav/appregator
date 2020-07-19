@@ -73,12 +73,17 @@ class _NewsListState extends State<NewsList> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: _newsArticles.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return NewsCard(_newsArticles[index]);
-                    },
-                  ),
+                  child: _newsArticles.isNotEmpty
+                      ? ListView.builder(
+                          itemCount: _newsArticles.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return NewsCard(_newsArticles[index]);
+                          },
+                        )
+                      : Center(
+                          child: Text(
+                              'Sorry, we could\'t found News related to \"${widget.query}\"'),
+                        ),
                 ),
               ],
             ),
