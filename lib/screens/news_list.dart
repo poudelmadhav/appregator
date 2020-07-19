@@ -36,8 +36,6 @@ class _NewsListState extends State<NewsList> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> newsCards =
-        _newsArticles.map((news) => NewsCard(news)).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text('Appregator'),
@@ -64,7 +62,12 @@ class _NewsListState extends State<NewsList> {
       ),
       body: loading
           ? Loading()
-          : ListView(padding: EdgeInsets.all(10.0), children: newsCards),
+          : ListView.builder(
+              itemCount: _newsArticles.length,
+              itemBuilder: (context, int index) {
+                return NewsCard(_newsArticles[index]);
+              },
+            ),
     );
   }
 }
